@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPLTV Berkelompok - Murid</title>
+<style>
+:root{--ink:#3e2c23;--mute:#7a6556;--sage:#a9ba95;--clay:#c2a58a;--sand:#efe9dc;--mint:#c5d1b4;--sky:#d3dcc4;--butter:#e8dfc8;--deep:#5a4033}
+*{box-sizing:border-box}
+::selection{background:var(--butter)}
+body{margin:0;font-family:"Nunito","Trebuchet MS","Segoe UI",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
+background:linear-gradient(160deg,#b9c8a6,#d5dfc6,#e9e6d4,#cdd8bb,#a9ba95);background-size:300% 300%;animation:bg 24s ease infinite}
+@keyframes bg{0%,100%{background-position:0 0}50%{background-position:100% 100%}}
+.blobs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.blobs i{position:absolute;width:40vmax;height:40vmax;filter:blur(50px);opacity:.6;animation:morph 14s ease-in-out infinite alternate}
+.blobs i:nth-child(1){background:#9fb38a;left:-10vmax;top:-12vmax}
+.blobs i:nth-child(2){background:#cbd6b8;right:-12vmax;top:8vh;animation-delay:-5s}
+.blobs i:nth-child(3){background:#d9cdb2;left:20vw;bottom:-20vmax;animation-delay:-9s}
+.blobs i:nth-child(4){background:#b6a48c;right:10vw;bottom:-10vmax;width:26vmax;height:26vmax;animation-delay:-3s}
+@keyframes morph{0%{border-radius:60% 40% 55% 45%/50% 60% 40% 50%}100%{border-radius:40% 60% 45% 55%/60% 40% 60% 40%;transform:translate(6vmax,5vmax) rotate(40deg)}}
+.sym{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.sym span{position:absolute;bottom:-60px;font-weight:900;color:#5a4033;opacity:.2;animation:rise linear infinite}
+.sym b{position:absolute;color:#fbf6e8;text-shadow:0 0 10px #8a9b78;animation:tw 2.6s ease-in-out infinite}
+@keyframes rise{to{transform:translateY(-118vh) rotate(50deg)}}
+@keyframes tw{0%,100%{opacity:.15;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(40deg)}}
+.container{position:relative;z-index:1;max-width:900px;margin:auto;padding:24px}
+.card{background:rgba(255,253,247,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:2.5px solid var(--deep);border-radius:30px;padding:26px;margin:20px 0;box-shadow:7px 9px 0 rgba(62,44,35,.45);animation:pop .7s cubic-bezier(.2,.9,.3,1.3) both;transition:transform .25s ease-out}
+#setup{background:rgba(244,240,228,.94)}
+.hero{background:linear-gradient(135deg,rgba(169,186,149,.95),rgba(197,209,180,.95),rgba(239,233,220,.95));display:flex;align-items:center;gap:22px;justify-content:space-between}
+@keyframes pop{from{opacity:0;transform:translateY(28px) scale(.95)}to{opacity:1;transform:none}}
+h1{margin:0;font-size:clamp(26px,5vw,40px);font-weight:900;background:linear-gradient(90deg,#3e2c23,#5f7a4a,#8a6a52,#4a6b3a,#3e2c23);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 7s linear infinite}
+@keyframes flow{to{background-position:-250% 0}}
+.subtitle{color:var(--mute);margin-top:6px;font-weight:700}
+h2{margin-top:0}h3{color:var(--mute)}
+.scene{perspective:600px;width:110px;height:110px;flex:none}
+.cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:spin 10s linear infinite}
+@keyframes spin{from{transform:rotateX(-28deg) rotateY(0)}to{transform:rotateX(-28deg) rotateY(360deg)}}
+.pl{position:absolute;inset:8px;border:2px solid var(--deep);border-radius:14px}
+.pl:nth-child(1){background:rgba(169,186,149,.92)}
+.pl:nth-child(2){background:rgba(138,106,82,.9);transform:rotateX(90deg)}
+.pl:nth-child(3){background:rgba(239,233,220,.95);transform:rotateY(90deg)}
+.pt{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;background:var(--butter);box-shadow:0 0 0 3px var(--deep),0 0 18px 6px #8fa57a;animation:glow 1.6s ease-in-out infinite alternate}
+@keyframes glow{to{box-shadow:0 0 0 3px var(--deep),0 0 30px 12px #8fa57a}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+label{font-weight:800;font-size:14px}
+input,textarea,button{width:100%;padding:13px 16px;border-radius:16px;font-size:15px;font-family:inherit}
+input,textarea{margin-top:6px;margin-bottom:12px;color:var(--ink);background:rgba(255,255,255,.92);border:2.5px solid #c3b8a5;transition:all .25s}
+input::placeholder,textarea::placeholder{color:#a09282}
+input:focus,textarea:focus{outline:0;background:#f4f1e6;border-color:var(--deep);box-shadow:0 0 0 5px rgba(90,64,51,.25);transform:translateY(-2px) rotate(-.3deg)}
+button{border:0;background:linear-gradient(135deg,#6b4c3b,#5a4033,#4a3328);background-size:200% 100%;color:#fffdf7;font-weight:900;cursor:pointer;margin-top:8px;box-shadow:0 5px 0 #24170f;transition:transform .15s,box-shadow .15s,background-position .5s;position:relative;overflow:hidden}
+button:hover{transform:translateY(-3px);box-shadow:0 8px 0 #24170f;background-position:100% 0}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 #24170f}
+button:before{content:"";position:absolute;top:0;left:-70%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg)}
+button:hover:before{animation:shine .7s}@keyframes shine{to{left:130%}}
+button.secondary{color:var(--ink);background:linear-gradient(135deg,var(--sage),var(--mint));box-shadow:0 5px 0 #7d8f69}
+button.secondary:hover{box-shadow:0 8px 0 #7d8f69}button.secondary:active{box-shadow:0 1px 0 #7d8f69}
+.hidden{display:none}
+.steps{display:flex;align-items:center;margin:8px 0 4px}
+.node{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:900;font-size:14px;background:#d9d6c4;color:#8a7d6a;transition:all .5s}
+.node.done{background:var(--mint);color:#2f4a2a;box-shadow:0 3px 0 #7d8f69}
+.node.now{background:var(--butter);color:var(--ink);box-shadow:0 3px 0 #8a6a52;animation:ring 1.6s infinite}
+@keyframes ring{0%{outline:0 solid rgba(138,106,82,.5)}100%{outline:14px solid rgba(138,106,82,0)}}
+.link{flex:1;height:4px;border-radius:9px;background:#c3b8a5}
+.progress{height:14px;background:#d9d6c4;border-radius:99px;overflow:hidden;margin:14px 0}
+.bar{height:100%;width:20%;border-radius:99px;background:linear-gradient(90deg,#9fb38a,#cbd6b8,#d9cdb2,#5a4033,#9fb38a);background-size:250% 100%;animation:flow 3s linear infinite;transition:width .9s cubic-bezier(.3,1,.4,1)}
+.role{display:inline-flex;align-items:center;gap:8px;border-radius:18px;padding:10px 16px;margin:6px 8px 6px 0;animation:roleIn .55s cubic-bezier(.2,.9,.3,1.6) both,floaty 3.4s ease-in-out .7s infinite;transition:transform .25s;font-weight:700}
+.role:hover{transform:translateY(-5px) rotate(-2deg)}
+.role em{font-style:normal;flex:none;width:38px;height:38px;border-radius:50%;background:var(--deep);color:#fffdf7;display:grid;place-items:center;font-weight:900;font-size:18px}
+.role small{display:block;font-weight:700;font-size:12.5px;line-height:1.35}.role small.d{font-weight:500;opacity:.8}
+#roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin:6px 0 14px}#roles .role{margin:0}
+.spot{display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:24px;position:relative;overflow:hidden;animation:spotIn .6s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes spotIn{from{opacity:0;transform:translateX(50px) scale(.95)}to{opacity:1;transform:none}}
+.spot:after{content:"";position:absolute;left:0;bottom:0;height:5px;background:var(--deep);animation:tick 4.5s linear forwards}
+@keyframes tick{from{width:0}to{width:100%}}
+.spot em{font-style:normal;flex:none;width:68px;height:68px;border-radius:50%;background:var(--deep);color:#fffdf7;display:grid;place-items:center;font-weight:900;font-size:32px;animation:floaty 3s ease-in-out infinite}
+.spot small{display:block;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.spot b{display:block;font-size:24px;line-height:1.2}.spot strong{display:block;font-size:16px;margin-top:2px}.spot span{display:block;font-size:14px;opacity:.85;margin-top:2px}
+.rd{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.rd i{width:12px;height:12px;border-radius:99px;background:#d9d6c4;cursor:pointer;transition:all .4s}.rd i.on{width:36px;background:var(--deep)}
+.rh{text-align:center;font-size:12px;color:var(--mute);margin-top:8px}
+.r0{background:var(--sky);box-shadow:0 4px 0 #7d8f69}.r1{background:var(--mint);box-shadow:0 4px 0 #7d8f69}.r2{background:var(--butter);box-shadow:0 4px 0 #8a6a52}.r3{background:var(--clay);box-shadow:0 4px 0 #5a4033}.r4{background:var(--sage);box-shadow:0 4px 0 #6f8a5a}
+@keyframes roleIn{from{opacity:0;transform:scale(.4) translateY(16px)}to{opacity:1;transform:none}}
+.count{text-align:right;font-size:12px;color:var(--mute);margin:-8px 0 6px}
+.success,.error{padding:14px;border-radius:18px;margin-top:16px;font-weight:800;animation:pop .5s both}
+.success{background:var(--mint);color:#2f4a2a}.error{background:#ecd0c4;color:#7a2a18}
+.conf{position:fixed;top:-12px;width:11px;height:15px;border-radius:4px;z-index:9;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.8}}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.container{padding:12px}.scene{width:80px;height:80px}}
+@media(prefers-reduced-motion:reduce){*,*:before{animation:none!important;transition:none!important}}
+
+.card{animation-fill-mode:backwards}
+.container>.card:nth-child(2){animation-delay:.15s}.container>.card:nth-child(3){animation-delay:.3s}
+.hero{position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:sweep 6s ease-in-out infinite;pointer-events:none}
+@keyframes sweep{0%,55%{left:-60%}100%{left:130%}}
+.scene{position:relative}
+.scene:before,.scene:after{content:"";position:absolute;inset:0;border:2px solid var(--deep);border-radius:50%;opacity:0;animation:ripple 3.2s ease-out infinite;pointer-events:none}
+.scene:after{animation-delay:1.6s}
+@keyframes ripple{0%{transform:scale(.7);opacity:.55}100%{transform:scale(1.25);opacity:0}}
+.leaf{position:absolute;top:-40px;font-size:22px;opacity:.75;animation:leaf linear infinite}
+@keyframes leaf{0%{transform:translate(0,-5vh) rotate(0)}25%{transform:translate(45px,28vh) rotate(90deg)}50%{transform:translate(-35px,58vh) rotate(180deg)}75%{transform:translate(45px,88vh) rotate(270deg)}100%{transform:translate(0,115vh) rotate(360deg)}}
+@keyframes floaty{50%{translate:0 -6px}}
+.rip{position:absolute;width:10px;height:10px;margin:-5px;border-radius:50%;background:rgba(255,255,255,.55);animation:rip .7s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(30);opacity:0}}
+.trail{position:fixed;pointer-events:none;z-index:9;font-size:15px;animation:trail .9s ease-out forwards}
+@keyframes trail{to{transform:translate(var(--dx),-34px) scale(.2) rotate(120deg);opacity:0}}
+.eq{display:inline-flex;gap:3px;align-items:flex-end;height:16px;margin-left:4px}
+.eq i{width:4px;height:4px;background:var(--deep);border-radius:2px;animation:eqb 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:-.3s}.eq i:nth-child(3){animation-delay:-.6s}.eq i:nth-child(4){animation-delay:-.15s}
+@keyframes eqb{0%,100%{height:4px}50%{height:16px}}
+tbody tr{transition:transform .25s}tbody tr:hover{transform:translateX(6px)}
+</style>
+</head>
+<body><div style="position:relative;z-index:10;text-align:center;padding:10px"><a href="index.html" style="display:inline-block;padding:9px 16px;border:2px solid #5a4033;border-radius:14px;background:#fffdf7;color:#3e2c23;text-decoration:none;font-weight:800">🏠 Beranda</a></div>
+<div class="blobs"><i></i><i></i><i></i><i></i></div>
+<div class="sym" id="float"></div>
+<div class="container">
+<div class="card hero">
+<div>
+<h1>📚 SPLTV Berkelompok</h1>
+<div class="subtitle">Role & Contribution Tracker</div>
+</div>
+<div class="scene"><div class="cube"><div class="pl"></div><div class="pl"></div><div class="pl"></div><div class="pt"></div></div></div>
+</div>
+
+<div class="card" id="setup">
+<h2>Gabung Pembelajaran</h2>
+<p class="subtitle">Setiap siswa mengisi data dirinya sendiri dari perangkat masing-masing.</p>
+<div class="grid">
+  <div>
+    <label>Kode kelas / sesi</label>
+    <input id="session" autocomplete="off" placeholder="Contoh: SPLTV01">
+  </div>
+  <div>
+    <label>Kode kelompok</label>
+    <input id="groupCode" autocomplete="off" placeholder="Contoh: A01">
+  </div>
+</div>
+<label>Nama Anda</label>
+<input id="studentName" autocomplete="name" placeholder="Masukkan nama lengkap Anda">
+<div id="joinInfo" class="rh">Kelompok maksimal 5 siswa.</div>
+<button onclick="start()">🚀 Gabung ke Pembelajaran</button>
+<div id="message"></div>
+</div>
+
+<div class="card hidden" id="work">
+<h2 id="questionTitle"></h2>
+<div class="steps" id="steps"></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<h3>Peran Anggota</h3>
+<div id="roles"></div>
+<label>Jawaban kelompok</label>
+<textarea id="answer" rows="8" placeholder="Tuliskan hasil diskusi dan jawaban kelompok di sini..." oninput="cnt.textContent=this.value.length+' karakter'"></textarea>
+<div class="count" id="cnt">0 karakter</div>
+<button onclick="submitAnswer()">📤 Kirim Jawaban ke Guru</button>
+<button class="secondary" onclick="nextQuestion()">➡️ Soal Berikutnya</button>
+<div id="message"></div>
+</div>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>const firebaseConfig = {
+  apiKey: "AIzaSyBM_7Gs41_2yp3xsBFCYI8u2nLBJr4_zA",
+  authDomain: "tracker-matematika.firebaseapp.com",
+  databaseURL: "https://tracker-matematika-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tracker-matematika",
+  storageBucket: "tracker-matematika.firebasestorage.app",
+  messagingSenderId: "336146664189",
+  appId: "1:336146664189:web:3001c84980825a54988c94"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+</script>
+<script>
+
+const HURUF=["A","B","C","D","E"];
+const ROLE=[
+  ["Pembuat Model Matematika","Mengubah soal menjadi model persamaan"],
+  ["Juru Hitung","Menyederhanakan 3 variabel menjadi 2 variabel"],
+  ["Juru Hitung","Menyederhanakan 3 variabel menjadi 2 variabel"],
+  ["Pencatat LKPD","Mencatat seluruh cara di lembar LKPD"],
+  ["Pengecek & Penjaga Waktu","Mengecek hasil akhir dan memastikan waktu"]
+];
+let state={session:"",groupCode:"",studentName:"",studentId:"",members:[],q:0};
+const $=id=>document.getElementById(id);
+function clean(v,max=80){return String(v||"").trim().slice(0,max)}
+function cleanSession(v){return clean(v,60).toUpperCase()}
+function cleanGroup(v){return clean(v,30).toUpperCase().replace(/\s+/g,"-")}
+function idSafe(v){return encodeURIComponent(v)}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function storageKey(){return "spltvStudent:"+state.session+":"+state.groupCode+":"+state.studentName.toLowerCase()}
+function confetti(){
+  const c=["#8fa57a","#b9c8a6","#5a4033","#c2a58a","#d9cdb2","#6f8a5a"];
+  for(let i=0;i<44;i++){const e=document.createElement("div");e.className="conf";e.style.cssText=`left:${Math.random()*100}vw;background:${c[i%6]};animation-duration:${1.6+Math.random()*1.6}s;animation-delay:${Math.random()*.4}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),3800)}
+}
+async function joinSession(){
+  const ref=db.ref(`sessions/${idSafe(state.session)}/groups/${idSafe(state.groupCode)}`);
+  const snap=await ref.get();
+  const current=snap.exists()?(snap.val()||{}):{};
+  const students=current.students||{};
+  const existing=Object.entries(students).find(([id,v])=>v && String(v.name||"").toLowerCase()===state.studentName.toLowerCase());
+  if(existing) state.studentId=existing[0];
+  else{
+    if(Object.keys(students).length>=5) throw new Error("Kelompok ini sudah penuh (maksimal 5 siswa).");
+    const saved=localStorage.getItem(storageKey());
+    state.studentId=saved || (crypto.randomUUID?crypto.randomUUID():"s-"+Date.now()+"-"+Math.random().toString(16).slice(2));
+    localStorage.setItem(storageKey(),state.studentId);
+  }
+  const now=Date.now(),updates={};
+  updates[`sessions/${idSafe(state.session)}/groups/${idSafe(state.groupCode)}/students/${idSafe(state.studentId)}`]={
+    name:state.studentName,joinedAt:(students[state.studentId]?.joinedAt||now),updatedAt:now
+  };
+  updates[`sessions/${idSafe(state.session)}/groups/${idSafe(state.groupCode)}/updatedAt`]=now;
+  await db.ref().update(updates);
+  await refreshMembers();
+}
+async function refreshMembers(){
+  const snap=await db.ref(`sessions/${idSafe(state.session)}/groups/${idSafe(state.groupCode)}`).get();
+  const d=snap.val()||{},students=d.students||{};
+  state.members=Object.entries(students).map(([id,v])=>({id,...v})).sort((a,b)=>(a.joinedAt||0)-(b.joinedAt||0));
+  $("joinInfo").textContent=`Kelompok ${state.groupCode}: ${state.members.length}/5 siswa bergabung.`;
+}
+async function start(){
+  state.session=cleanSession($("session").value);
+  state.groupCode=cleanGroup($("groupCode").value);
+  state.studentName=clean($("studentName").value,80);
+  if(!state.session)return alert("Masukkan kode kelas/sesi.");
+  if(!state.groupCode)return alert("Masukkan kode kelompok.");
+  if(!state.studentName)return alert("Masukkan nama Anda.");
+  try{
+    await joinSession();state.q=0;$("setup").classList.add("hidden");$("work").classList.remove("hidden");
+    $("message").className="success";$("message").textContent=`✓ Anda bergabung sebagai ${state.studentName} di kelompok ${state.groupCode}.`;render();
+  }catch(e){console.error(e);$("message").className="error";$("message").textContent=e.message||"Gagal terhubung ke Firebase."}
+}
+function render(){
+  $("questionTitle").textContent="Soal "+(state.q+1);$("bar").style.width=((state.q+1)/5*100)+"%";
+  $("steps").innerHTML=[0,1,2,3,4].map(i=>(i?'<div class="link"></div>':'')+`<div class="node ${i<state.q?"done":i==state.q?"now":""}">${i<state.q?"✓":i+1}</div>`).join("");
+  const list=[];for(let r=0;r<5;r++){const m=(r+state.q)%Math.max(1,state.members.length);if(state.members[m])list.push({r,n:state.members[m].name})}
+  $("roles").innerHTML=list.map((o,i)=>`<div class="role r${o.r}" style="animation-delay:${i*.1}s"><em>${HURUF[o.r]}</em><span><b>${escapeHtml(o.n)}</b><small>Peran ${HURUF[o.r]}: ${ROLE[o.r][0]}</small><small class="d">${ROLE[o.r][1]}</small></span></div>`).join("");
+}
+async function submitAnswer(){
+  const a=$("answer").value.trim();if(!a)return alert("Tuliskan jawaban terlebih dahulu.");
+  try{
+    const now=Date.now(),sid=idSafe(state.session),gid=idSafe(state.groupCode),q=state.q+1;
+    const payload={studentId:state.studentId,studentName:state.studentName,groupCode:state.groupCode,question:q,answer:a,updatedAt:now};
+    const updates={};updates[`sessions/${sid}/groups/${gid}/answers/${state.studentId}/${q}`]=payload;
+    updates[`sessions/${sid}/groups/${gid}/students/${state.studentId}/updatedAt`]=now;
+    await db.ref().update(updates);$("message").className="success";$("message").textContent="✓ Jawaban Anda berhasil masuk ke dashboard guru secara realtime.";confetti();
+  }catch(e){console.error(e);$("message").className="error";$("message").textContent="Gagal mengirim jawaban ke Firebase."}
+}
+function nextQuestion(){
+  if(state.q>=4){$("message").className="success";$("message").textContent="✓ Semua soal telah selesai.";confetti();return}
+  state.q++;$("answer").value="";$("cnt").textContent="0 karakter";$("message").className="";$("message").textContent="";render();
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  const f=$("float"),symbols=["x","y","z","+","−","=","2x","3y","z²","∑"];let h="";
+  for(let i=0;i<16;i++)h+=`<span style="left:${Math.random()*100}%;font-size:${24+Math.random()*46}px;animation-duration:${14+Math.random()*16}s;animation-delay:-${Math.random()*20}s">${symbols[i%symbols.length]}</span>`;
+  for(let i=0;i<26;i++)h+=`<b style="left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${10+Math.random()*16}px;animation-delay:-${Math.random()*3}s;animation-duration:${2+Math.random()*2.5}s">✦</b>`;
+  f.innerHTML=h;
+  for(let i=0;i<12;i++)f.insertAdjacentHTML("beforeend",`<span class="leaf" style="left:${Math.random()*100}%;animation-duration:${16+Math.random()*14}s;animation-delay:-${Math.random()*25}s;font-size:${16+Math.random()*14}px">${["🍃","🌿","🍂","🌱"][i%4]}</span>`);
+});
+
+</script>
+</body>
+</html>
